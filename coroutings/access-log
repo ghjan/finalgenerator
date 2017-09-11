@@ -1,0 +1,30 @@
+Exception in thread Thread-7:
+Traceback (most recent call last):
+  File "/usr/lib64/python2.7/threading.py", line 811, in __bootstrap_inner
+    self.run()
+  File "/usr/lib64/python2.7/threading.py", line 764, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/usr/lib/python2.7/site-packages/compose/cli/log_printer.py", line 197, in watch_events
+    for event in event_stream:
+  File "/usr/lib/python2.7/site-packages/compose/project.py", line 356, in events
+    decode=True
+  File "/usr/lib/python2.7/site-packages/docker/api/client.py", line 290, in _stream_helper
+    for chunk in json_stream(self._stream_helper(response, False)):
+  File "/usr/lib/python2.7/site-packages/docker/utils/json_stream.py", line 66, in split_buffer
+    for data in stream_as_text(stream):
+  File "/usr/lib/python2.7/site-packages/docker/utils/json_stream.py", line 22, in stream_as_text
+    for data in stream:
+  File "/usr/lib/python2.7/site-packages/docker/api/client.py", line 296, in _stream_helper
+    data = reader.read(1)
+  File "/usr/lib/python2.7/site-packages/requests/packages/urllib3/response.py", line 397, in read
+    raise IncompleteRead(self._fp_bytes_read, self.length_remaining)
+  File "/usr/lib64/python2.7/contextlib.py", line 35, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "/usr/lib/python2.7/site-packages/requests/packages/urllib3/response.py", line 303, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, 'Read timed out.')
+ReadTimeoutError: UnixHTTPConnectionPool(host='localhost', port=None): Read timed out.
+
+real_1                     | /usr/local/lib/python3.6/site-packages/grequests.py:21: RuntimeWarning: Patching more than once will result in the union of all True parameters being patched
+real_1                     |   curious_george.patch_all(thread=False, select=False)
+real_1                     | /usr/local/lib/python3.6/site-packages/grequests.py:21: RuntimeWarning: Patching more than once will result in the union of all True parameters being patched
+real_1                     |   curious_george.patch_all(thread=False, select=False)

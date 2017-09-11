@@ -67,12 +67,12 @@ def bus_locations():
         print("%(route)s,%(id)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % bus)
 
 
-p = xml.sax.parse("./coroutines/allroutes.xml",
-                  EventHandler(
-                      buses_to_dicts(
-                          filter_on_field("route", "22",
-                                          filter_on_field("direction", "North Bound",
-                                                          bus_locations())))
-                  ))
 if __name__ == '__main__':
+    p = xml.sax.parse("./coroutines/allroutes.xml",
+                      EventHandler(
+                          buses_to_dicts(
+                              filter_on_field("route", "22",
+                                              filter_on_field("direction", "North Bound",
+                                                              bus_locations())))
+                      ))
     print(timeit('p', 'from __main__ import p '))

@@ -5,7 +5,7 @@
 # is because the accept() operation in the server is blocking.  Since we're
 # not using threads, this blocks the operation of everything!
 
-from pyos6 import *
+from pyos6_2 import *
 from socket import *
 
 def handle_client(client,addr):

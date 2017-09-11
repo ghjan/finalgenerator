@@ -9,6 +9,7 @@ import xml.parsers.expat
 from buses import *
 from corouting_decorator import coroutine
 
+
 #
 # class EventHandler(xml.sax.ContentHandler):
 #     def __init__(self, target):
@@ -78,7 +79,7 @@ def expat_parse(f, target):
 
 
 # Example.  This uses the bus processing code from earlier with no changes.
-p = expat_parse(open("./coroutines/allroutes.xml", "rb"), buses_to_dicts(
-    filter_on_field("route", "22", filter_on_field("direction", "North Bound", bus_locations()))))
 if __name__ == '__main__':
+    p = expat_parse(open("./coroutines/allroutes.xml", "rb"), buses_to_dicts(
+        filter_on_field("route", "22", filter_on_field("direction", "North Bound", bus_locations()))))
     print(timeit('p', 'from __main__ import p '))

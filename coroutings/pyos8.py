@@ -1,8 +1,10 @@
 # ------------------------------------------------------------
-# pyos6_2.py  -  The Python Operating System
+# pyos8.py  -  The Python Operating System
 #
-# Added support for task waiting
+# Step 7 : Support for coroutine trampolines (subroutines)
 # ------------------------------------------------------------
+
+import types
 
 # ------------------------------------------------------------
 #                       === Tasks ===
@@ -14,15 +16,32 @@ class Task(object):
         self.tid     = Task.taskid   # Task ID
         self.target  = target        # Target coroutine
         self.sendval = None          # Value to send
+        self.stack   = []            # Call stack
 
     # Run a task until it hits the next yield statement
     def run(self):
-        return self.target.send(self.sendval)
+        while True:
+            try:
+                result = self.target.send(self.sendval)
+                if isinstance(result,SystemCall): return result
+                if isinstance(result,types.GeneratorType):
+                    self.stack.append(self.target)
+                    self.sendval = None
+                    self.target  = result
+                else:
+                    if not self.stack: return
+                    self.sendval = result
+                    self.target  = self.stack.pop()
+            except StopIteration:
+                if not self.stack: raise
+                self.sendval = None
+                self.target = self.stack.pop()
 
 # ------------------------------------------------------------
 #                      === Scheduler ===
 # ------------------------------------------------------------
 from Queue import Queue
+import select
 
 class Scheduler(object):
     def __init__(self):
@@ -32,6 +51,10 @@ class Scheduler(object):
         # Tasks waiting for other tasks to exit
         self.exit_waiting = {}
 
+        # I/O waiting
+        self.read_waiting = {}
+        self.write_waiting = {}
+        
     def new(self,target):
         newtask = Task(target)
         self.taskmap[newtask.tid] = newtask
@@ -52,23 +75,46 @@ class Scheduler(object):
         else:
             return False
 
+    # I/O waiting
+    def waitforread(self,task,fd):
+        self.read_waiting[fd] = task
+
+    def waitforwrite(self,task,fd):
+        self.write_waiting[fd] = task
+
+    def iopoll(self,timeout):
+        if self.read_waiting or self.write_waiting:
+           r,w,e = select.select(self.read_waiting,
+                                 self.write_waiting,[],timeout)
+           for fd in r: self.schedule(self.read_waiting.pop(fd))
+           for fd in w: self.schedule(self.write_waiting.pop(fd))
+
+    def iotask(self):
+        while True:
+            if self.ready.empty():
+                self.iopoll(None)
+            else:
+                self.iopoll(0)
+            yield
+
     def schedule(self,task):
         self.ready.put(task)
 
     def mainloop(self):
+         self.new(self.iotask())
          while self.taskmap:
-            task = self.ready.get()
-            try:
-                result = task.run()
-                if isinstance(result,SystemCall):
-                    result.task  = task
-                    result.sched = self
-                    result.handle()
-                    continue
-            except StopIteration:
-                self.exit(task)
-                continue
-            self.schedule(task)
+             task = self.ready.get()
+             try:
+                 result = task.run()
+                 if isinstance(result,SystemCall):
+                     result.task  = task
+                     result.sched = self
+                     result.handle()
+                     continue
+             except StopIteration:
+                 self.exit(task)
+                 continue
+             self.schedule(task)
 
 # ------------------------------------------------------------
 #                   === System Calls ===
@@ -118,21 +164,45 @@ class WaitTask(SystemCall):
         if not result:
             self.sched.schedule(self.task)
 
+# Wait for reading
+class ReadWait(SystemCall):
+    def __init__(self,f):
+        self.f = f
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforread(self.task,fd)
+
+# Wait for writing
+class WriteWait(SystemCall):
+    def __init__(self,f):
+        self.f = f
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforwrite(self.task,fd)
+
+# ------------------------------------------------------------
+#                      === Library Functions ===
+# ------------------------------------------------------------
+
+def Accept(sock):
+    yield ReadWait(sock)
+    yield sock.accept()
+
+def Send(sock,buffer):
+    while buffer:
+        yield WriteWait(sock)
+        len = sock.send(buffer)
+        buffer = buffer[len:]
+
+def Recv(sock,maxbytes):
+    yield ReadWait(sock)
+    yield sock.recv(maxbytes)
+
 # ------------------------------------------------------------
 #                      === Example ===
 # ------------------------------------------------------------
-if __name__ == '__main__':
-    def foo():
-        for i in xrange(5):
-            print "I'm foo"
-            yield
 
-    def main():
-        child = yield NewTask(foo())
-        print "Waiting for child"
-        yield WaitTask(child)
-        print "Child done"
+# Look at the echoserver.py script for an example
 
-    sched = Scheduler()
-    sched.new(main())
-    sched.mainloop()
+
+

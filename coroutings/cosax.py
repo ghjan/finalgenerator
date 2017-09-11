@@ -1,15 +1,12 @@
-#!/usr/bin/env python
-# encoding: utf-8
+# cosax.py
+#
+# An example showing how to push SAX events into a coroutine target
 
-"""
-@author: david
-@time: 9/11/17 4:47 PM
-"""
-from __future__ import absolute_import
 import xml.sax
+from coroutine import *
 
 
-class MyHandler(xml.sax.ContentHandler):
+class EventHandler(xml.sax.ContentHandler):
     def __init__(self, target):
         self.target = target
 
@@ -23,5 +20,15 @@ class MyHandler(xml.sax.ContentHandler):
         self.target.send(('end', name))
 
 
+# example use
 if __name__ == '__main__':
-    xml.sax.parse("somefile.xml", MyHandler())
+
+    @coroutine
+    def printer():
+        while True:
+            event = (yield)
+            print(event)
+
+
+    xml.sax.parse("allroutes.xml",
+                  EventHandler(printer()))

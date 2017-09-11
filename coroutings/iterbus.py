@@ -19,7 +19,8 @@ def use_iterparse():
             buses.remove(elem)
 
 
-p = use_iterparse()
+
 
 if __name__ == '__main__':
+    p = use_iterparse()
     print(timeit('p', 'from __main__ import p'))

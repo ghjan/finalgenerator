@@ -1,7 +1,7 @@
 # ------------------------------------------------------------
-# pyos6_2.py  -  The Python Operating System
+# pyos7.py  -  The Python Operating System
 #
-# Added support for task waiting
+# Step 6 : I/O Waiting Support added
 # ------------------------------------------------------------
 
 # ------------------------------------------------------------
@@ -23,6 +23,7 @@ class Task(object):
 #                      === Scheduler ===
 # ------------------------------------------------------------
 from Queue import Queue
+import select
 
 class Scheduler(object):
     def __init__(self):
@@ -32,6 +33,10 @@ class Scheduler(object):
         # Tasks waiting for other tasks to exit
         self.exit_waiting = {}
 
+        # I/O waiting
+        self.read_waiting = {}
+        self.write_waiting = {}
+        
     def new(self,target):
         newtask = Task(target)
         self.taskmap[newtask.tid] = newtask
@@ -52,23 +57,46 @@ class Scheduler(object):
         else:
             return False
 
+    # I/O waiting
+    def waitforread(self,task,fd):
+        self.read_waiting[fd] = task
+
+    def waitforwrite(self,task,fd):
+        self.write_waiting[fd] = task
+
+    def iopoll(self,timeout):
+        if self.read_waiting or self.write_waiting:
+           r,w,e = select.select(self.read_waiting,
+                                 self.write_waiting,[],timeout)
+           for fd in r: self.schedule(self.read_waiting.pop(fd))
+           for fd in w: self.schedule(self.write_waiting.pop(fd))
+
+    def iotask(self):
+        while True:
+            if self.ready.empty():
+                self.iopoll(None)
+            else:
+                self.iopoll(0)
+            yield
+
     def schedule(self,task):
         self.ready.put(task)
 
     def mainloop(self):
+         self.new(self.iotask())
          while self.taskmap:
-            task = self.ready.get()
-            try:
-                result = task.run()
-                if isinstance(result,SystemCall):
-                    result.task  = task
-                    result.sched = self
-                    result.handle()
-                    continue
-            except StopIteration:
-                self.exit(task)
-                continue
-            self.schedule(task)
+             task = self.ready.get()
+             try:
+                 result = task.run()
+                 if isinstance(result,SystemCall):
+                     result.task  = task
+                     result.sched = self
+                     result.handle()
+                     continue
+             except StopIteration:
+                 self.exit(task)
+                 continue
+             self.schedule(task)
 
 # ------------------------------------------------------------
 #                   === System Calls ===
@@ -118,21 +146,26 @@ class WaitTask(SystemCall):
         if not result:
             self.sched.schedule(self.task)
 
+# Wait for reading
+class ReadWait(SystemCall):
+    def __init__(self,f):
+        self.f = f
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforread(self.task,fd)
+
+# Wait for writing
+class WriteWait(SystemCall):
+    def __init__(self,f):
+        self.f = f
+    def handle(self):
+        fd = self.f.fileno()
+        self.sched.waitforwrite(self.task,fd)
+
 # ------------------------------------------------------------
 #                      === Example ===
 # ------------------------------------------------------------
-if __name__ == '__main__':
-    def foo():
-        for i in xrange(5):
-            print "I'm foo"
-            yield
 
-    def main():
-        child = yield NewTask(foo())
-        print "Waiting for child"
-        yield WaitTask(child)
-        print "Child done"
+# Run the script echogood.py to see this work
 
-    sched = Scheduler()
-    sched.new(main())
-    sched.mainloop()
+

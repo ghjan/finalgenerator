@@ -8,8 +8,8 @@ NPROCS = 3
 start = time.time()
 
 procs = []
-for i in xrange(NPROCS):
-    p = subprocess.Popen(['python','blaster.py'])
+for i in range(NPROCS):
+    p = subprocess.Popen(['python', 'blaster.py'])
     procs.append(p)
 
 for p in procs:
@@ -17,5 +17,4 @@ for p in procs:
 
 end = time.time()
 
-print end-start
-    
+print(end - start)

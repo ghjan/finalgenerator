@@ -3,21 +3,24 @@
 # A simple of example of trampoling between coroutines
 
 # A subroutine
-def add(x,y):
-    yield x+y
+def add(x, y):
+    yield x + y
+
 
 # A function that calls a subroutine
 def main():
-    r = yield add(2,2)
-    print r
+    r = yield add(2, 2)
+    print(r)
     yield
 
+
 def run():
-    m      = main()       
+    m = main()
     # An example of a "trampoline"
-    sub    = m.send(None)             
+    sub = m.send(None)
     result = sub.send(None)
     m.send(result)
 
-run()
 
+if __name__ == '__main__':
+    run()

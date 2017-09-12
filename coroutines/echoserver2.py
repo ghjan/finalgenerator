@@ -6,28 +6,31 @@ from pyos8 import *
 from socket import *
 from sockwrap import Socket
 
-def handle_client(client,addr):
-    print "Connection from", addr
+
+def handle_client(client, addr):
+    print("Connection from", addr)
     while True:
         data = yield client.recv(65536)
         if not data:
             break
         yield client.send(data)
-    print "Client closed"
+    print("Client closed")
     yield client.close()
 
-def server(port):
-    print "Server starting"
-    rawsock = socket(AF_INET,SOCK_STREAM)
-    rawsock.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
-    rawsock.bind(("",port))
-    rawsock.listen(1024)
 
+def server(port):
+    rawsock = socket(AF_INET, SOCK_STREAM)
+    rawsock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+    rawsock.bind(("", port))
+    rawsock.listen(1024)
+    print("Server starting at port:{}".format(port))
     sock = Socket(rawsock)
     while True:
-        client,addr = yield sock.accept()
-        yield NewTask(handle_client(client,addr))
+        client, addr = yield sock.accept()
+        yield NewTask(handle_client(client, addr))
 
-sched = Scheduler()
-sched.new(server(45000))
-sched.mainloop()
+
+if __name__ == '__main__':
+    sched = Scheduler()
+    sched.new(server(45000))
+    sched.mainloop()

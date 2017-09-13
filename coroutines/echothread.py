@@ -3,7 +3,7 @@
 # A concurrent echo server using threads
 
 try:
-    import socketserver
+    import socketserver as SocketServer
 except:
     import SocketServer
 

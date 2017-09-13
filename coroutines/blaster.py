@@ -31,7 +31,7 @@ def send_message(dest):
             bytes_recv += len(s.recv(65536))
         if bytes_sent < MSGSIZE:
             for s in w:
-                bytes_sent += s.send(MSG[:MSGSIZE - bytes_sent])
+                bytes_sent += s.send(MSG[:MSGSIZE - bytes_sent].encode(encoding='utf-8'))
 
 
 # Send a bunch of random messages
@@ -43,5 +43,6 @@ def send_random(count):
         send_message(dest)
 
 
-# Run it
-send_random(100000)
+if __name__ == '__main__':
+    # Run it
+    send_random(100000)

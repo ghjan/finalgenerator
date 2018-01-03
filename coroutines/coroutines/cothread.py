@@ -4,7 +4,7 @@
 # via a Queue object
 
 from threading import Thread
-from Queue import Queue
+from queue import Queue
 from coroutine import *
 
 @coroutine

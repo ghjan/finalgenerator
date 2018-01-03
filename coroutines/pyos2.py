@@ -28,7 +28,7 @@ class Task(object):
 try:
     from queue import Queue
 except:
-    from Queue import Queue
+    from queue import Queue
 
 
 class Scheduler(object):

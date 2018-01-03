@@ -39,7 +39,7 @@ if __name__ == '__main__':
             yield
         finally:
             end = time.time()
-            print(end-start)
+            print((end-start))
 
     with timethis():
         n = 1000000

@@ -10,7 +10,7 @@
 
 
 def countdown(n):
-    print("Counting down from", n)
+    print(("Counting down from", n))
 
     while n >= 0:
         newvalue = (yield n)
@@ -19,7 +19,7 @@ def countdown(n):
             n = newvalue
         else:
             n -= 1
-        print("countdown received:{}".format(newvalue))
+        print(("countdown received:{}".format(newvalue)))
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@
 # An example that shows how the initial scheduler doesn't handle
 # task termination correctly.
 
-from pyos2 import Scheduler
+from .pyos2 import Scheduler
 
 
 def foo():

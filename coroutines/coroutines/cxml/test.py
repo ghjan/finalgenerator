@@ -3,7 +3,7 @@ import cxmlparse
 def coroutine(func):
     def start(*args,**kwargs):
         cr = func(*args,**kwargs)
-        cr.next()
+        next(cr)
         return cr
     return start
 
@@ -37,7 +37,7 @@ def filter_on_field(fieldname,value,target):
 def bus_locations():
     while True:
         bus = (yield)
-        print("%(route)s,%(id)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % bus)
+        print(("%(route)s,%(id)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % bus))
 
 @coroutine
 def printer():

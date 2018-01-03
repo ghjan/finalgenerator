@@ -27,17 +27,17 @@ def grep(pattern, lines):
 
 
 def grep2(pattern):
-    print("Looking for %s" % pattern)
+    print(("Looking for %s" % pattern))
     while True:
         # yield expression
         line = (yield)
         if line:
             if pattern in line:
-                print("line:{}".format(line))
+                print(("line:{}".format(line)))
 
 
 if __name__ == '__main__':
-    print(sys.argv)
+    print((sys.argv))
     filename = "access-log"
     pattern = 'python'
     grep_no = 0
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         if pylines:
             for line in pylines:
                 if line:
-                    print("in pylines:{}".format(line))
+                    print(("in pylines:{}".format(line)))
     else:
         gen = grep_method(pattern)
         # This advances execution to the location of the first yield expression.

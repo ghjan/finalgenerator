@@ -23,4 +23,4 @@ def follow(thefile):
 if __name__ == '__main__':
     logfile = open("access-log")
     for line in follow(logfile):
-        print line,
+        print(line, end=' ')

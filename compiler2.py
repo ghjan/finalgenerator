@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
     print('---- Evaluation')
     result = Evaluator().visit(tree)
-    print('Result:', result)
+    print(('Result:', result))
 
 
     def explosion():
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         toks = tokenize(text)
         tree = parse(toks)
         val = Evaluator().visit(tree)
-        print('Result:', val)
+        print(('Result:', val))
 
     print('---- Evil Evaluation')
     explosion()

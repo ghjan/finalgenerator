@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     def do_func(x, y):
         result = yield pool.submit(func, x, y)
-        print('Got:', result)
+        print(('Got:', result))
 
     t = Task(do_func(2,3))
     t.step()
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     def do_many(n):
         while n > 0:
             result = yield pool.submit(func, n, n)
-            print('Got:', result)
+            print(('Got:', result))
             n -= 1
 
     t2 = Task(do_many(10))

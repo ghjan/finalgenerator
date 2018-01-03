@@ -27,7 +27,7 @@ class Task(object):
 try:
     from queue import Queue
 except:
-    from Queue import Queue
+    from queue import Queue
 
 
 class Scheduler(object):
@@ -45,7 +45,7 @@ class Scheduler(object):
         return newtask.tid
 
     def exit(self, task):
-        print("Task %d terminated" % task.tid)
+        print(("Task %d terminated" % task.tid))
         del self.taskmap[task.tid]
         # Notify other tasks waiting for exit
         for task in self.exit_waiting.pop(task.tid, []):
@@ -104,7 +104,7 @@ class NewTask(SystemCall):
         self.sched.schedule(self.task)
 
     def waitfortask(self, other_task):
-        print("Waiting for other_task:{}".other_task.tid)
+        print(("Waiting for other_task:{}".other_task.tid))
         yield WaitTask(other_task)
 
 
@@ -155,14 +155,14 @@ if __name__ == '__main__':
 
     def main():
         child = yield NewTask(foo())
-        print("id(child):{}".format(child))
+        print(("id(child):{}".format(child)))
         task2 = NewTask(bar())
         child2 = yield task2
-        print("id(child2):{}".format(child2))
+        print(("id(child2):{}".format(child2)))
         task2.waitfortask(child)
         print("Child done")
 
 
     sched = Scheduler()
-    print("id(main):{}".format(sched.new(main())))
+    print(("id(main):{}".format(sched.new(main()))))
     sched.mainloop()

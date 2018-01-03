@@ -5,7 +5,7 @@
 @author: david
 @time: 9/11/17 4:47 PM
 """
-from __future__ import absolute_import
+
 import sys
 import time
 from corouting_decorator import coroutine
@@ -31,7 +31,7 @@ def printer():
 
 
 if __name__ == '__main__':
-    print(sys.argv)
+    print((sys.argv))
     filename = "access-log"
     if len(sys.argv) > 1:
         filename = sys.argv[1] or "access-log"

@@ -14,7 +14,7 @@ def use_iterparse():
                            for child in elem)
             if (busdict['route'] == '22' and
                         busdict['direction'] == 'North Bound'):
-                print("%(id)s,%(route)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % busdict)
+                print(("%(id)s,%(route)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % busdict))
 
             buses.remove(elem)
 
@@ -23,4 +23,4 @@ def use_iterparse():
 
 if __name__ == '__main__':
     p = use_iterparse()
-    print(timeit('p', 'from __main__ import p'))
+    print((timeit('p', 'from __main__ import p')))

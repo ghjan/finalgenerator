@@ -4,10 +4,10 @@
 try:
     import pickle
 except:
-    import cPickle as pickle
+    import pickle as pickle
 import traceback
 
-from coroutine import *
+from .coroutine import *
 
 
 @coroutine
@@ -47,8 +47,8 @@ def recvfrom(f, target):
 # Example use
 if __name__ == '__main__':
     import xml.sax
-    from cosax import EventHandler
-    from buses import *
+    from .cosax import EventHandler
+    from .buses import *
 
     import subprocess
 

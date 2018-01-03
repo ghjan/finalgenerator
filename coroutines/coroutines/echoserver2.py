@@ -7,17 +7,17 @@ from socket import *
 from sockwrap import Socket
 
 def handle_client(client,addr):
-    print "Connection from", addr
+    print("Connection from", addr)
     while True:
         data = yield client.recv(65536)
         if not data:
             break
         yield client.send(data)
-    print "Client closed"
+    print("Client closed")
     yield client.close()
 
 def server(port):
-    print "Server starting"
+    print("Server starting")
     rawsock = socket(AF_INET,SOCK_STREAM)
     rawsock.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
     rawsock.bind(("",port))

@@ -17,4 +17,4 @@ for p in procs:
 
 end = time.time()
 
-print(end - start)
+print((end - start))

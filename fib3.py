@@ -43,7 +43,7 @@ start = time.time()
 result = run_inline_future(compute_fibs(34))
 result = run_inline_future(compute_fibs(34))
 end = time.time()
-print("Sequential:", end-start)
+print(("Sequential:", end-start))
 
 tpool = ThreadPoolExecutor(8)
 start = time.time()
@@ -52,7 +52,7 @@ t2 = tpool.submit(run_inline_thread, compute_fibs(34))
 result1 = t1.result()
 result2 = t2.result()
 end = time.time()
-print("Parallel:", end-start)
+print(("Parallel:", end-start))
 
 
 

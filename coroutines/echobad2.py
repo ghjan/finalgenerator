@@ -6,11 +6,11 @@
 # in the ready queue.
 
 from socket import *
-from pyos7 import *
+from .pyos7 import *
 
 
 def handle_client(client, addr):
-    print("Connection from", addr)
+    print(("Connection from", addr))
     while True:
         yield ReadWait(client)
         data = client.recv(65536)
@@ -27,7 +27,7 @@ def server(port):
     sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     sock.bind(("", port))
     sock.listen(5)
-    print("Server starting at port:{}".format(port))
+    print(("Server starting at port:{}".format(port)))
     while True:
         yield ReadWait(sock)
         client, addr = sock.accept()

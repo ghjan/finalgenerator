@@ -32,7 +32,7 @@ def grep(pattern,target):
 def printer():
     while True:
          line = (yield)
-         print line,
+         print(line, end=' ')
 
 # Broadcast a stream onto multiple targets
 @coroutine

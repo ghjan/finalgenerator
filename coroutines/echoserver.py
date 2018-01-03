@@ -2,12 +2,12 @@
 #
 # A concurrent echo server using coroutines
 
-from pyos8 import *
+from .pyos8 import *
 from socket import *
 
 
 def handle_client(client, addr):
-    print("Connection from", addr)
+    print(("Connection from", addr))
     while True:
         data = yield Recv(client, 65536)
         if not data:
@@ -22,7 +22,7 @@ def server(port):
     sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     sock.bind(("", port))
     sock.listen(5)
-    print("Server starting at port:{}".format(port))
+    print(("Server starting at port:{}".format(port)))
     while True:
         client, addr = yield Accept(sock)
         yield NewTask(handle_client(client, addr))

@@ -2,7 +2,7 @@
 #
 # An example of running a coroutine in a subprocess connected by a pipe
 
-import cPickle as pickle
+import pickle as pickle
 from coroutine import *
 
 @coroutine

@@ -5,7 +5,7 @@
 @author: david
 @time: 9/11/17 4:47 PM
 """
-from __future__ import absolute_import
+
 import sys
 import time
 from corouting_decorator import coroutine
@@ -71,9 +71,9 @@ if __name__ == '__main__':
     p1 = grep('python', null())  # Coroutine
     p2 = GrepHandler('python', null())  # Object
 
-    print(timeit("p1.send(line)",
-                 "from __main__ import line,p1"))
-    print(timeit("p2.send(line)",
-                 "from __main__ import line,p2"))
+    print((timeit("p1.send(line)",
+                 "from __main__ import line,p1")))
+    print((timeit("p2.send(line)",
+                 "from __main__ import line,p2")))
     # 0.4181449390016496
     # 0.5490629359846935

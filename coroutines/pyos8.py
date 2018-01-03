@@ -46,7 +46,7 @@ class Task(object):
 try:
     from queue import Queue
 except:
-    from Queue import Queue
+    from queue import Queue
 import select
 
 
@@ -69,7 +69,7 @@ class Scheduler(object):
         return newtask.tid
 
     def exit(self, task):
-        print("Task %d terminated" % task.tid)
+        print(("Task %d terminated" % task.tid))
         del self.taskmap[task.tid]
         # Notify other tasks waiting for exit
         for task in self.exit_waiting.pop(task.tid, []):

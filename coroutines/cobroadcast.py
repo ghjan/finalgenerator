@@ -2,7 +2,7 @@
 #
 # An example of broadcasting a data stream onto multiple coroutine targets.
 
-from coroutine import coroutine
+from .coroutine import coroutine
 
 # A data source.  This is not a coroutine, but it sends
 # data into one (target)
@@ -34,7 +34,7 @@ def grep(pattern, target):
 def printer():
     while True:
         line = (yield)
-        print(line, )
+        print((line, ))
 
 
 # Broadcast a stream onto multiple targets

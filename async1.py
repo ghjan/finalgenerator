@@ -10,5 +10,5 @@ def do_func(x, y):
 
 loop = asyncio.get_event_loop()
 result = loop.run_until_complete(do_func(2,3))
-print("Got:", result)
+print(("Got:", result))
 

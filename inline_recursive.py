@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     def recursive(n):
         yield pool.submit(time.sleep, 0.001)
-        print('Tick:', n)
+        print(('Tick:', n))
         Task(recursive(n+1)).step()
 
     Task(recursive(0)).step()

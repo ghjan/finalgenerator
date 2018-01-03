@@ -22,7 +22,7 @@ class Task(object):
 # ------------------------------------------------------------
 #                      === Scheduler ===
 # ------------------------------------------------------------
-from Queue import Queue
+from queue import Queue
 
 class Scheduler(object):
     def __init__(self):
@@ -36,7 +36,7 @@ class Scheduler(object):
         return newtask.tid
 
     def exit(self,task):
-        print "Task %d terminated" % task.tid
+        print("Task %d terminated" % task.tid)
         del self.taskmap[task.tid]
 
     def schedule(self,task):
@@ -57,13 +57,13 @@ class Scheduler(object):
 # ------------------------------------------------------------
 if __name__ == '__main__':
     def foo():
-        for i in xrange(10):
-            print "I'm foo"
+        for i in range(10):
+            print("I'm foo")
             yield
 
     def bar():
-        for i in xrange(5):
-            print "I'm bar"
+        for i in range(5):
+            print("I'm bar")
             yield
 
     sched = Scheduler()

@@ -23,7 +23,7 @@ class Task(object):
 # ------------------------------------------------------------
 #                      === Scheduler ===
 # ------------------------------------------------------------
-from Queue import Queue
+from queue import Queue
 
 class Scheduler(object):
     def __init__(self):
@@ -53,12 +53,12 @@ if __name__ == '__main__':
     # Two tasks
     def foo():
         while True:
-            print "I'm foo"
+            print("I'm foo")
             yield
 
     def bar():
         while True:
-            print "I'm bar"
+            print("I'm bar")
             yield    
         
     # Run them

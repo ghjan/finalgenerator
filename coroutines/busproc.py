@@ -3,8 +3,8 @@
 # Bus processor.  This runs as a subprocess from the coprocess.py example
 
 import sys
-from coprocess import recvfrom
-from buses import *
+from .coprocess import recvfrom
+from .buses import *
 
 recvfrom(sys.stdin,
          filter_on_field("route", "22",

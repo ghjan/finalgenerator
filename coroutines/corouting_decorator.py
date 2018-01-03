@@ -30,20 +30,20 @@ def coroutine(func):
 
 @coroutine
 def grep(pattern):
-    print("Looking for %s" % pattern)
+    print(("Looking for %s" % pattern))
     try:
         while True:
             # yield expression
             line = (yield)
             if line:
                 if pattern in line:
-                    print("line:{}".format(line))
+                    print(("line:{}".format(line)))
     except GeneratorExit:
         print("Going away. Goodbye")
 
 
 if __name__ == '__main__':
-    print(sys.argv)
+    print((sys.argv))
     filename = "access-log"
     pattern = 'python'
     if len(sys.argv) > 1:

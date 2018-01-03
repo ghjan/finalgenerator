@@ -22,7 +22,7 @@ if __name__ == '__main__':
     def printer():
         while True:
             event = (yield)
-            print event
+            print(event)
 
     xml.sax.parse("allroutes.xml",
                   EventHandler(printer()))

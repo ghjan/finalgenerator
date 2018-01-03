@@ -37,9 +37,9 @@ if __name__ == '__main__':
     def do_func(x, y):
         try:
             result = yield pool.submit(func, x, y)
-            print('Got:', result)
+            print(('Got:', result))
         except Exception as e:
-            print('Failed:', repr(e))
+            print(('Failed:', repr(e)))
 
     t = Task(do_func(2,3))
     t.step()

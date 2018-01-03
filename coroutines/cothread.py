@@ -8,8 +8,8 @@ from threading import Thread
 try:
     from queue import Queue
 except:
-    from Queue import Queue
-from coroutine import *
+    from queue import Queue
+from .coroutine import *
 
 
 @coroutine
@@ -36,13 +36,13 @@ def threaded(target):
 
 # Example use
 import xml.sax
-from cosax import EventHandler
-from buses import *
+from .cosax import EventHandler
+from .buses import *
 
 if __name__ == '__main__':
     import xml.sax
-    from cosax import EventHandler
-    from buses import *
+    from .cosax import EventHandler
+    from .buses import *
 
     p = xml.sax.parse("allroutes.xml", EventHandler(
         buses_to_dicts(
@@ -51,4 +51,4 @@ if __name__ == '__main__':
                                 filter_on_field("direction", "North Bound",
                                                 bus_locations()))
             ))))
-    print(timeit('p', "from __main__ import p"))
+    print((timeit('p', "from __main__ import p")))

@@ -6,12 +6,12 @@
 from pyos2 import Scheduler
 
 def foo():
-    for i in xrange(10):
-        print "I'm foo"
+    for i in range(10):
+        print("I'm foo")
         yield
 def bar():
      while True:
-         print "I'm bar"
+         print("I'm bar")
          yield
 
 sched = Scheduler()

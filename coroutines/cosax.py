@@ -3,7 +3,7 @@
 # An example showing how to push SAX events into a coroutine target
 
 import xml.sax
-from coroutine import *
+from .coroutine import *
 
 
 class EventHandler(xml.sax.ContentHandler):

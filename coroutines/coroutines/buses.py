@@ -36,8 +36,8 @@ def filter_on_field(fieldname,value,target):
 def bus_locations():
     while True:
         bus = (yield)
-        print "%(route)s,%(id)s,\"%(direction)s\","\
-              "%(latitude)s,%(longitude)s" % bus 
+        print("%(route)s,%(id)s,\"%(direction)s\","\
+              "%(latitude)s,%(longitude)s" % bus) 
 
 # Example 
 if __name__ == '__main__':

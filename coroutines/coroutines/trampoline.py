@@ -9,7 +9,7 @@ def add(x,y):
 # A function that calls a subroutine
 def main():
     r = yield add(2,2)
-    print r
+    print(r)
     yield
 
 def run():

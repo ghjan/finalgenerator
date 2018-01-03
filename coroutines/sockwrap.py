@@ -2,7 +2,7 @@
 #
 # Coroutine wrapper around a socket object
 
-from pyos8 import *
+from .pyos8 import *
 
 
 class Socket(object):

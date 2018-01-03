@@ -4,8 +4,8 @@
 # crash.   Basically, there are two threads feeding data into the
 # printer() coroutine.    
 
-from cobroadcast import *
-from cothread import threaded
+from .cobroadcast import *
+from .cothread import threaded
 
 '''
 If you call send() on an already-executing

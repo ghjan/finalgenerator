@@ -27,7 +27,7 @@ class Task(object):
 try:
     from queue import Queue
 except:
-    from Queue import Queue
+    from queue import Queue
 
 
 class Scheduler(object):
@@ -42,7 +42,7 @@ class Scheduler(object):
         return newtask.tid
 
     def exit(self, task):
-        print("Task %d terminated" % task.tid)
+        print(("Task %d terminated" % task.tid))
         del self.taskmap[task.tid]
 
     def schedule(self, task):
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     def foo():
         mytid = yield GetTid()
         while True:
-            print("I'm foo", mytid)
+            print(("I'm foo", mytid))
             yield
 
 

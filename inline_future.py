@@ -66,7 +66,7 @@ if __name__ == '__main__':
             result = yield pool.submit(func, x, y)
             return result
         except Exception as e:
-            print('Failed:', repr(e))
+            print(('Failed:', repr(e)))
 
     @inlined_future
     def after(delay, fut):
@@ -78,7 +78,7 @@ if __name__ == '__main__':
         return result
 
     result = run_inline_future(do_func(2,3))
-    print('Result:', result)
+    print(('Result:', result))
 
     result = run_inline_future(after(10, do_func(2,3)))
-    print('Result:', result)
+    print(('Result:', result))

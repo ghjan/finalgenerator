@@ -5,12 +5,12 @@
 # is because the accept() operation in the server is blocking.  Since we're
 # not using threads, this blocks the operation of everything!
 
-from pyos6_2 import *
+from .pyos6_2 import *
 from socket import *
 
 
 def handle_client(client, addr):
-    print("Connection from", addr)
+    print(("Connection from", addr))
     while True:
         data = client.recv(65536)
         if not data:

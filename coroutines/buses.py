@@ -7,7 +7,7 @@
 @file: buses.py
 @time: 9/11/17 5:57 PM
 """
-from __future__ import absolute_import
+
 
 from timeit import timeit
 import xml.sax
@@ -64,7 +64,7 @@ def filter_on_field(fieldname, value, target):
 def bus_locations():
     while True:
         bus = (yield)
-        print("%(route)s,%(id)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % bus)
+        print(("%(route)s,%(id)s,\"%(direction)s\",\"%(latitude)s,%(longitude)s" % bus))
 
 
 if __name__ == '__main__':
@@ -75,4 +75,4 @@ if __name__ == '__main__':
                                               filter_on_field("direction", "North Bound",
                                                               bus_locations())))
                       ))
-    print(timeit('p', 'from __main__ import p '))
+    print((timeit('p', 'from __main__ import p ')))

@@ -12,7 +12,7 @@ for event,elem in iterparse("allroutes.xml",('start','end')):
                         for child in elem)
         if (busdict['route'] == '22' and 
             busdict['direction'] == 'North Bound'):
-            print "%(id)s,%(route)s,\"%(direction)s\","\
-                  "%(latitude)s,%(longitude)s" % busdict
+            print("%(id)s,%(route)s,\"%(direction)s\","\
+                  "%(latitude)s,%(longitude)s" % busdict)
         buses.remove(elem) 
 

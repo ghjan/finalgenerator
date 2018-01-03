@@ -6,7 +6,7 @@ from socket import *
 from pyos7 import *
 
 def handle_client(client,addr):
-    print "Connection from", addr
+    print("Connection from", addr)
     while True:
         yield ReadWait(client)
         data = client.recv(65536)
@@ -15,10 +15,10 @@ def handle_client(client,addr):
         yield WriteWait(client)
         client.send(data)
     client.close()
-    print "Client closed"
+    print("Client closed")
 
 def server(port):
-    print "Server starting"
+    print("Server starting")
     sock = socket(AF_INET,SOCK_STREAM)
     sock.setsockopt(SOL_SOCKET,SO_REUSEADDR,1)
     sock.bind(("",port))

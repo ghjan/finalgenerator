@@ -10,7 +10,7 @@
 def receiver():
     while True:
         item = (yield)
-        print('Got', item)
+        print(('Got', item))
 
 
 if __name__ == '__main__':

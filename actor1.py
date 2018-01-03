@@ -19,7 +19,7 @@ if __name__ == '__main__':
     def printer():
         while True:
             msg = yield
-            print('printer:', msg)
+            print(('printer:', msg))
 
     printer()
     n = 10

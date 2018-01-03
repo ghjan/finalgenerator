@@ -9,18 +9,18 @@ from pyos6_2 import *
 from socket import *
 
 def handle_client(client,addr):
-    print "Connection from", addr
+    print("Connection from", addr)
     while True:
         data = client.recv(65536)
         if not data:
             break
         client.send(data)
     client.close()
-    print "Client closed"
+    print("Client closed")
     yield           # Make the function a generator/coroutine
 
 def server(port):
-    print "Server starting"
+    print("Server starting")
     sock = socket(AF_INET,SOCK_STREAM)
     sock.bind(("",port))
     sock.listen(5)
@@ -30,7 +30,7 @@ def server(port):
 
 def alive():
         while True:
-            print "I'm alive!"
+            print("I'm alive!")
             yield
 
 sched = Scheduler()

@@ -12,7 +12,7 @@ target = broadcast([threaded(grep('foo',p)),
                     threaded(grep('bar',p))])
 
 # Adjust the count if this doesn't cause a crash
-for i in xrange(10):
+for i in range(10):
     target.send("foo is nice\n")
     target.send("bar is bad\n")
 

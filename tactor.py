@@ -36,14 +36,14 @@ def actor(func):
 def ping():
     while True:
         n = yield
-        print('ping %d' % n)
+        print(('ping %d' % n))
         send('pong', n + 1)
 
 @actor
 def pong():
     while True:
         n = yield
-        print('pong %d' % n)
+        print(('pong %d' % n))
         send('ping', n + 1)
 
 if __name__ == '__main__':

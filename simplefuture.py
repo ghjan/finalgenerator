@@ -19,7 +19,7 @@ if __name__ == '__main__':
         '''
         fut = pool.submit(func, 2, 3)
         r = fut.result()
-        print('Got:', r)
+        print(('Got:', r))
 
     def example2():
         '''
@@ -28,9 +28,9 @@ if __name__ == '__main__':
         fut = pool.submit(func, 2, 'Hello')
         try:
             r = fut.result()
-            print('Got:', r)
+            print(('Got:', r))
         except Exception as e:
-            print('Whoops:', e)
+            print(('Whoops:', e))
 
     def example3():
         '''
@@ -42,9 +42,9 @@ if __name__ == '__main__':
     def result_handler(fut):
         try:
             result = fut.result()
-            print('Got:', result)
+            print(('Got:', result))
         except Exception as e:
-            print('Whoops:', e)
+            print(('Whoops:', e))
 
 
     example1()

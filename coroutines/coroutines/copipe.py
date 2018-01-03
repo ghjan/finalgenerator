@@ -35,7 +35,7 @@ def grep(pattern,target):
 def printer():
     while True:
          line = (yield)
-         print line,
+         print(line, end=' ')
 
 # Example use
 if __name__ == '__main__':

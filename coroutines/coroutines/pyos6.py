@@ -22,7 +22,7 @@ class Task(object):
 # ------------------------------------------------------------
 #                      === Scheduler ===
 # ------------------------------------------------------------
-from Queue import Queue
+from queue import Queue
 
 class Scheduler(object):
     def __init__(self):
@@ -39,7 +39,7 @@ class Scheduler(object):
         return newtask.tid
 
     def exit(self,task):
-        print "Task %d terminated" % task.tid
+        print("Task %d terminated" % task.tid)
         del self.taskmap[task.tid]
         # Notify other tasks waiting for exit
         for task in self.exit_waiting.pop(task.tid,[]):
@@ -123,15 +123,15 @@ class WaitTask(SystemCall):
 # ------------------------------------------------------------
 if __name__ == '__main__':
     def foo():
-        for i in xrange(5):
-            print "I'm foo"
+        for i in range(5):
+            print("I'm foo")
             yield
 
     def main():
         child = yield NewTask(foo())
-        print "Waiting for child"
+        print("Waiting for child")
         yield WaitTask(child)
-        print "Child done"
+        print("Child done")
 
     sched = Scheduler()
     sched.new(main())

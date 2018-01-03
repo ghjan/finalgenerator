@@ -9,6 +9,7 @@ def grep(pattern):
         if pattern in line:
             print(line, end=' ')
 
+
 # Example use
 if __name__ == '__main__':
     g = grep("python")

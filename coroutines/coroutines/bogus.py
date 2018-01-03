@@ -12,11 +12,10 @@ def countdown(n):
         else:
             n -= 1
 
+
 # The holy grail countdown
 c = countdown(5)
 for x in c:
     print(x)
     if x == 5:
         c.send(3)
-
-

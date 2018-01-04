@@ -4,11 +4,13 @@
 # automatically on call.
 
 def coroutine(func):
-    def start(*args,**kwargs):
-        cr = func(*args,**kwargs)
+    def start(*args, **kwargs):
+        cr = func(*args, **kwargs)
         next(cr)
         return cr
+
     return start
+
 
 # Example use
 if __name__ == '__main__':
@@ -19,6 +21,7 @@ if __name__ == '__main__':
             line = (yield)
             if pattern in line:
                 print(line, end=' ')
+
 
     g = grep("python")
     # Notice how you don't need a next() call here

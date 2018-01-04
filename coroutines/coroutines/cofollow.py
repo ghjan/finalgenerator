@@ -4,31 +4,35 @@
 # coroutines.   To run this, you will need a log file.
 # Run the program logsim.py in the background to get a data
 # source.
-
+import sys
 from coroutine import coroutine
 
 # A data source.  This is not a coroutine, but it sends
 # data into one (target)
 
 import time
+
+
 def follow(thefile, target):
-    thefile.seek(0,2)      # Go to the end of the file
+    thefile.seek(0, 2)  # Go to the end of the file
     while True:
-         line = thefile.readline()
-         if not line:
-             time.sleep(0.1)    # Sleep briefly
-             continue
-         target.send(line)
+        line = thefile.readline()
+        if not line:
+            time.sleep(0.1)  # Sleep briefly
+            continue
+        target.send(line)
+
 
 # A sink.  A coroutine that receives data
-
 @coroutine
 def printer():
     while True:
-         line = (yield)
-         print(line, end=' ')
+        line = (yield)
+        print(line, end=' ')
+
 
 # Example use
 if __name__ == '__main__':
-    f = open("access-log")
-    follow(f,printer())
+    f = open(sys.argv[1] if
+             len(sys.argv) > 1 else "access-log")
+    follow(f, printer())
